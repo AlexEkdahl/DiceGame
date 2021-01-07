@@ -2,17 +2,16 @@ import java.util.*;
 
 public class Logic {
 
-   private HashMap<String, Integer> scores = new HashMap<>();
+   private HashMap<String, Integer> playerScores = new HashMap<>();
    private Player players[];
-   final int SCORE_TO_WIN = 1000;
-
+   final int SCORE_TO_WIN = 150;
 
    public Logic(Player players[]) {
       this.players = players;
 
       // Save players name and gives them the starting point of 0
       for (Player player : this.players) {
-         scores.put(player.getName(), 0);
+         playerScores.put(player.getName(), 0);
       }
    }
 
@@ -23,20 +22,20 @@ public class Logic {
          player.rollDice();
          System.out.println(player.getName() + ": " + player.getSum());
 
-         scores.replace(player.getName(), player.getSum());
+         playerScores.replace(player.getName(), player.getSum());
 
       }
    }
 
    public boolean checkIsWinner() {
       for (Player player : players) {
-         if (player.getSum() >= SCORE_TO_WIN && !isSameScore()) {
+         if (player.getSum() >= SCORE_TO_WIN && isSameScore()) {
+            player.setWinner(true);
             return true;
          }
       }
       return false;
    }
-
 
    // Sorts temp list with ascending order
    // If two players with highest score is the same then there are no winner
@@ -47,29 +46,23 @@ public class Logic {
       }
       Collections.sort(tempScores);
 
-      if (tempScores.get(0) == (tempScores.get(1))) {
-
+      if (tempScores.get(tempScores.size() - 1) != (tempScores.get(tempScores.size() - 2))) {
          return true;
-      } else {
-         return false;
       }
+      return false;
    }
 
    public void getScores() {
-      scores.forEach((key, value) -> System.out.println(key + ":" + value));
+      playerScores.forEach((key, value) -> System.out.println(key + ":" + value));
    }
 
-   // Itterate through players to get the one with the highest score
-   public Player highestScore() {
-      int bestScore = 0;
-      int bestIndex = 0;
-      for (int i = 0; i < players.length; i++) {
-         if (players[i].getSum() > bestScore) {
-            bestScore = players[i].getSum();
-            bestIndex = i;
+   // Itterate through players to get to player with isWinner set to true
+   public void printWinner() {
+      for(Player player: players){
+         if (player.checkIfWinner()){
+            System.out.println("The winner is: " + player.getName() 
+            + " with a total of " + player.getSum() + " points!" );
          }
       }
-      return players[bestIndex];
    }
-
 }

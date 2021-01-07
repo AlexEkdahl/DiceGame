@@ -11,8 +11,8 @@ public class Main {
 
         Player[] players = new Player[3];
         players[0] = new Player(username, numberOfDices, 6);
-        players[1] = new Player("Alex", numberOfDices, 6);
-        players[2] = new Player("Linda", numberOfDices, 6);
+        players[1] = new Player("AlexTheChamp", numberOfDices, 6);
+        players[2] = new Player("LindaTheMightBeChamp", numberOfDices, 6);
 
         // Creates the game
         Logic game = new Logic(players);
@@ -22,11 +22,8 @@ public class Main {
             game.doRound();
             System.out.println();
         }
-
-        // Check who's the winner
-        Player winner = game.highestScore();
-        System.out.println("The winner is: " + winner.getName() + " with score: " + winner.getSum());
-        game.getScores();
+        
+        game.printWinner();
 
     }
 
@@ -38,7 +35,7 @@ public class Main {
                 return input.nextInt();
             } catch (InputMismatchException e) {
                 input.next();
-                System.out.println("Nu blev det fel. Heltal och med siffror. Prova igen: ");
+                System.out.println("Wopps, numbers pls, try again: ");
             }
         }
     }
