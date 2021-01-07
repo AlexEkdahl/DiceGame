@@ -7,10 +7,19 @@ public class Player {
    private String name;
    private DiceCup diceCup;
    private int sum;
+   private boolean isWinner = false;
 
    public Player(String name, int numberOfDices, int numberOfSides) {
       this.name = name;
       this.diceCup = new DiceCup(numberOfDices, numberOfSides);
+   }
+
+   public void setWinner(boolean isWinner){
+      this.isWinner = isWinner;
+   }
+
+   public boolean checkIfWinner(){
+      return isWinner;
    }
 
    public int getSum() {

@@ -25,7 +25,6 @@ public class Dice {
       Random rand = new Random();
       this.lastValue = rand.nextInt(numOfSides) + 1;
       return lastValue;
-
    }
 
 }
